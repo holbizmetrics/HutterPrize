@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="src/HutterLab.Core/HutterLab.Core.csproj" />
+  <Project Path="src/HutterLab.Cli/HutterLab.Cli.csproj" />
+  <Project Path="tests/HutterLab.Tests/HutterLab.Tests.csproj" />
+</Solution>

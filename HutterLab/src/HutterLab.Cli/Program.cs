@@ -37,7 +37,8 @@ class Program
         bool verify = false;
         bool sweep = false;
         int sweepTop = 20;
-        
+        var parameters = new Dictionary<string, object>();
+
         for (int i = 0; i < args.Length; i++)
         {
             switch (args[i])
@@ -59,6 +60,10 @@ class Program
                     break;
                 case "--sweep-top":
                     sweepTop = int.Parse(args[++i]);
+                    break;
+                case "--param":
+                    var kv = args[++i].Split('=', 2);
+                    if (kv.Length == 2) parameters[kv[0]] = kv[1];
                     break;
                 default:
                     if (!args[i].StartsWith('-'))
@@ -85,7 +90,7 @@ class Program
         var data = File.ReadAllBytes(inputFile);
         Console.WriteLine($"Size: {data.Length:N0} bytes\n");
         
-        var options = new CompressionOptions { Verbose = verbose };
+        var options = new CompressionOptions { Verbose = verbose, Parameters = parameters };
         
         // Run sweep
         if (sweep)
@@ -182,6 +187,7 @@ class Program
         Console.WriteLine("  --verify                Verify decompression matches original");
         Console.WriteLine("  --sweep                 Test all method combinations");
         Console.WriteLine("  --sweep-top <n>         Show top N results (default: 20)");
+        Console.WriteLine("  --param key=value       Set method-specific parameter");
         Console.WriteLine("  --list                  List all available methods");
         Console.WriteLine("  --help                  Show this help");
         Console.WriteLine("  --version               Show version");
